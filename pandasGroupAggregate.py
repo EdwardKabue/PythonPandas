@@ -42,6 +42,23 @@ country_grp = df.groupby(["Country"])
 #print(country_grp["SocialMedia"].value_counts().loc["India"])
 
 #Get value counts for a single group as percentages.
-print(country_grp["SocialMedia"].value_counts(normalize=True).loc["India"])
+#print(country_grp["SocialMedia"].value_counts(normalize=True).loc["India"])
+
+#print median for groups.
+#print(country_grp["ConvertedComp"].median());
 
 #print median for a single group.
+#print(country_grp["ConvertedComp"].median().loc["Afghanistan"])
+
+#Use multiple aggregate functions on groups.
+#print(country_grp["ConvertedComp"].agg(["median", "mean"]))
+
+#Use multiple aggregate functions on a single group.
+#print(country_grp["ConvertedComp"].agg(["median", "mean"]).loc["Albania"])
+
+#Get grouping count within a single group.
+# filt = df["Country"] == "India"
+# print(df.loc[filt]["LanguageWorkedWith"].str.contains("Python").sum())
+
+#Use 'apply' method to get grouping count within multiple groups.
+print(country_grp["LanguageWorkedWith"].apply(lambda x: x.str.contains("Python").sum()))
