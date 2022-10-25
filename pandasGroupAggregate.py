@@ -61,4 +61,17 @@ country_grp = df.groupby(["Country"])
 # print(df.loc[filt]["LanguageWorkedWith"].str.contains("Python").sum())
 
 #Use 'apply' method to get grouping count within multiple groups.
-print(country_grp["LanguageWorkedWith"].apply(lambda x: x.str.contains("Python").sum()))
+#print(country_grp["LanguageWorkedWith"].apply(lambda x: x.str.contains("Python").sum()))
+
+#Concatenate two series
+country_respondents = df["Country"].value_counts()
+#print(country_respondents)
+country_uses_python = country_grp["LanguageWorkedWith"].apply(lambda x: x.str.contains("Python").sum())
+#print(country_uses_python)
+python_df = pd.concat([country_respondents, country_uses_python], axis="columns", sort=False)
+python_df.rename(columns={"Country":"NumRespondents", "LanguageWorkedWith":"NumKnowsPython"}, inplace=True)
+print(python_df)
+python_df["PctKnowsPython"] = (python_df["NumKnowsPython"]/python_df["NumRespondents"]) * 100
+print(python_df)
+python_df.sort_values(by="PctKnowsPython", ascending=False, inplace=True)
+print(python_df)
