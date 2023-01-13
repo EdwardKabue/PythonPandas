@@ -36,4 +36,11 @@ df["DayOfWeek"] = df["Date"].dt.day_name() #Add new column to the dataframe that
 #set the date column as the index.
 df.set_index("Date", inplace=True)
 #print(df["2019"]) #filter using year after setting the index as date column
-print(df["2020-01":"2020-02"]) #slice the dataframe based on year and month.
+#print(df["2020-01":"2020-02"]) #slice the dataframe based on year and month.
+#print(df["2020-01":"2020-02"]["Close"].mean()) #get average value from time slice
+#print(df["2020-01-01"]["High"]) #get column values from a single day.
+#print(df["2020-01-01"]["High"].max()) #get maximum of column values from a single day.
+# highs = df["High"].resample("D").max() #use resample to group your series data in desired time periods (weeks, days...).
+# print(highs["2020-03-09"])
+#print(df.resample("W").mean()) #Invoke aggregate function on the entire dataframe.
+print(df.resample("W").agg({"Close":"mean", "High":"max", "Low":"min", "Volume":"sum"})) #invoke different aggregate functions unique to each column.
