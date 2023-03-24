@@ -17,4 +17,7 @@ india_df = df.loc[filt]
 # test = pd.read_excel("data/modified.xlsx", index_col="Respondent") #create dataframe from excel file.
 # print(test)
 
-india_df.to_json("data/modified.json")
+#india_df.to_json("data/modified.json")
+#india_df.to_json("data/modified.json", orient="records", lines=True) #format the json in a list like manner and each response is a list item.
+test = pd.read_json("data/modified.json", orient="records", lines=True)
+print(test.head())
